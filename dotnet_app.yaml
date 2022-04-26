@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    tags.datadoghq.com/env: "Dexcom"
+    tags.datadoghq.com/version: "2.0" 
+  name: dotnetapp
+spec:
+  selector:
+    matchLabels:
+      run: dotnetapp
+  template:
+    metadata:
+      labels:
+        tags.datadoghq.com/env: "Dexcom"
+        tags.datadoghq.com/version: "2.0"
+        run: dotnetapp 
+    spec:
+      volumes:
+        - hostPath:
+            path: /var/run/datadog/
+          name: apmsocketpath
+      containers:
+        - name: dotnetapp
+          image: jaycdave88/docker-dotnet3.1:v3
+          volumeMounts:
+            - name: apmsocketpath
+              mountPath: /var/run/datadog
+          env:
+            - name: DD_ENV
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/env']
+            - name: DD_VERSION
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['tags.datadoghq.com/version']
+            - name: DD_LOGS_INJECTION
+              value: "true"
+            - name: DD_APPSEC_ENABLED
+              value: "true"
+            - name: DD_RUNTIME_METRICS_ENABLED
+              value: "true"
+          ports:
+          - containerPort: 80
+            hostPort: 80
+            name: "http"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: dotnetapp
+  name: dotnetapp
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: dotnetapp
+  type: LoadBalancer
