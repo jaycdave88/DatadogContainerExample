@@ -41,6 +41,13 @@ spec:
               value: "true"
             - name: DD_RUNTIME_METRICS_ENABLED
               value: "true"
+            - name: DD_LOGS_DIRECT_SUBMISSION_INTEGRATIONS
+              value: "ILogger"
+            - name: DD_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: datadog-agent
+                  key: api-key
           ports:
           - containerPort: 80
             hostPort: 80
