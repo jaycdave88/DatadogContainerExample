@@ -75,7 +75,12 @@ The Datadog .NET APM Library must be installed in the application container (i.e
 Deploy the application pod
 
     kubeclt create -f <APPLICATION_YAML>
-    Example: kubectl create -f dotnet-app.yaml
+    Example: kubectl create -f dotnet_app.yaml
+
+Deploy the application service (for the LoadBalancer)
+
+    kubeclt create -f <APPLICATION_YAML>
+    Example: kubectl create -f dotnet_app_service.yaml
 
 Verify the application pod is running: 
 
@@ -84,8 +89,8 @@ Verify the application pod is running:
 ## Troubleshooting
 If you are updating the applicaiton manifest with a newer version: 
 
-    kubectl delete -f dotnet-app.yaml 
-    kubectl create -f dotnet-app.yaml 
+    kubectl delete -f dotnet_app.yaml 
+    kubectl create -f dotnet_app.yaml 
 
 Check the Load Balancer external IP: 
 
