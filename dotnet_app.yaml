@@ -43,6 +43,8 @@ spec:
               value: "true"
             - name: DD_LOGS_DIRECT_SUBMISSION_INTEGRATIONS
               value: "ILogger"
+            - name: DD_SITE
+              value: "datadoghq.com"
             - name: DD_API_KEY
               valueFrom:
                 secretKeyRef:
@@ -52,18 +54,3 @@ spec:
           - containerPort: 80
             hostPort: 80
             name: "http"
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    run: dotnetapp
-  name: dotnetapp
-spec:
-  ports:
-  - port: 80
-    protocol: TCP
-    targetPort: 80
-  selector:
-    run: dotnetapp
-  type: LoadBalancer
