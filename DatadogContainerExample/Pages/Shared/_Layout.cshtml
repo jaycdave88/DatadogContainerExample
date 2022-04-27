@@ -64,7 +64,7 @@
           sampleRate: 100,
           trackInteractions: true,
           defaultPrivacyLevel: 'mask-user-input',
-          allowedTracingOrigins: [window.location.origin]
+          allowedTracingOrigins: [/http:\/\/.*/]
         });
         
         DD_RUM.startSessionReplayRecording();
