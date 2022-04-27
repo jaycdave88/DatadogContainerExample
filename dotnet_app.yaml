@@ -22,7 +22,7 @@ spec:
           name: apmsocketpath
       containers:
         - name: dotnetapp
-          image: jaycdave88/datadog_container_example:v2
+          image: jaycdave88/datadog_container_example:v3
           volumeMounts:
             - name: apmsocketpath
               mountPath: /var/run/datadog
