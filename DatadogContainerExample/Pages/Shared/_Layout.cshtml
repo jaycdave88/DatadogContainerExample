@@ -45,6 +45,31 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Datadog RUM Setup -->
+    <script>
+      (function(h,o,u,n,d) {
+        h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
+        d=o.createElement(u);d.async=1;d.src=n
+        n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
+      })(window,document,'script','https://www.datadoghq-browser-agent.com/datadog-rum-v4.js','DD_RUM')
+      DD_RUM.onReady(function() {
+        DD_RUM.init({
+          clientToken: 'pubbd15d54a8e07e8db88c5a9b3708a5cc9',
+          applicationId: '65512bdc-28db-4f41-90f7-b46b560e1c31',
+          site: 'datadoghq.com',
+          service:'datadogcontainerexample',
+          env:'production',
+          // Specify a version number to identify the deployed version of your application in Datadog 
+          // version: '1.0.0',
+          sampleRate: 100,
+          trackInteractions: true,
+          defaultPrivacyLevel: 'mask-user-input'
+        });
+        
+        DD_RUM.startSessionReplayRecording();
+      })
+    </script>
+    <!-- End Datadog RUM Setup -->
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
