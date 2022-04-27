@@ -63,7 +63,8 @@
           // version: '1.0.0',
           sampleRate: 100,
           trackInteractions: true,
-          defaultPrivacyLevel: 'mask-user-input'
+          defaultPrivacyLevel: 'mask-user-input',
+          allowedTracingOrigins: [window.location.origin]
         });
         
         DD_RUM.startSessionReplayRecording();
