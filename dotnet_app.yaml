@@ -22,7 +22,7 @@ spec:
           name: apmsocketpath
       containers:
         - name: dotnetapp
-          image: jaycdave88/docker-dotnet3.1:v3
+          image: jaycdave88/datadog_container_example:v1
           volumeMounts:
             - name: apmsocketpath
               mountPath: /var/run/datadog
@@ -43,8 +43,6 @@ spec:
               value: "true"
             - name: DD_LOGS_DIRECT_SUBMISSION_INTEGRATIONS
               value: "ILogger"
-            - name: DD_SITE
-              value: "datadoghq.com"
             - name: DD_API_KEY
               valueFrom:
                 secretKeyRef:
